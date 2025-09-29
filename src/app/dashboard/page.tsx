@@ -5,7 +5,6 @@ import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
-import { BACKEND_URL } from '../../constants/backend';
 
 interface Admin {
   _id: string;
@@ -45,6 +44,7 @@ export default function DashboardPage() {
   const [handleDaysType, setHandleDaysType] = useState<'increase' | 'decrease'>('increase');
   const router = useRouter();
   let Status = '';
+  const apiurl = process.env.NEXT_PUBLIC_APIURL;
   // Fetch admin data
   useEffect(() => {
     const storedId = localStorage.getItem('userid');
@@ -57,7 +57,7 @@ export default function DashboardPage() {
     }
     const fetchAdmins = async () => {
       try {
-        const response = await axios.get(`${BACKEND_URL}/superadmin/admins`, {
+        const response = await axios.get(`${apiurl}/superadmin/admins`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -102,7 +102,7 @@ export default function DashboardPage() {
       console.log('Sending id:', id);
       console.log('Sending subscription:', newAdmin.subscription);
 
-      const response = await axios.post(`${BACKEND_URL}/auth/registeraccessadmin`, {
+      const response = await axios.post(`${apiurl}/auth/registeraccessadmin`, {
         email: newAdmin.email,
         id: id,
         subscription: newAdmin.subscription,
@@ -147,7 +147,7 @@ export default function DashboardPage() {
       const newStatus = hasAccess(currentStatus) ? 'inactive' : 'active';
 
       const response = await axios.put(
-        `${BACKEND_URL}/superadmin/toggle-admin-status`,
+        `${apiurl}/superadmin/toggle-admin-status`,
         {
           userid: adminUserId,
           superAdminId: id,
@@ -235,7 +235,7 @@ export default function DashboardPage() {
         payload.handleDaysType = handleDaysType;
       }
       await axios.put(
-        `${BACKEND_URL}/superadmin/subscription`,
+        `${apiurl}/superadmin/subscription`,
         payload,
         {
           headers: {

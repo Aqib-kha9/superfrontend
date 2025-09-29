@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
 import axios from 'axios';
-import { BACKEND_URL } from '../../../constants/backend';
+
 
 
 interface AdminStats {
@@ -46,6 +46,7 @@ export default function ReportsPage() {
     totalProducts: 0,
     totalRetailers: 0
   });
+  const apiurl = process.env.NEXT_PUBLIC_APIURL;
   
   const [reports, setReports] = useState<AdminReport[]>([]);
   const [filters, setFilters] = useState({
@@ -62,7 +63,7 @@ export default function ReportsPage() {
   // Mock data - Replace with actual API call
   useEffect(() => {
     const fetchAnalytics = async () => {
-      const response = await axios.get(`${BACKEND_URL}/superadmin/analytics`);
+      const response = await axios.get(`${apiurl}/superadmin/analytics`);
       setStats(response.data.Stats);
       setReports(response.data.adminReport);
     };

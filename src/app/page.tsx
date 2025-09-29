@@ -6,17 +6,17 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { jwtDecode } from 'jwt-decode';
-import { BACKEND_URL } from '../constants/backend';
 
 export default function HomePage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter(); 
+  const apiurl = process.env.NEXT_PUBLIC_APIURL;
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${BACKEND_URL}/auth/loginSA`, {
+      const response = await axios.post(`${apiurl}/auth/loginSA`, {
         email,
         password,
       });
