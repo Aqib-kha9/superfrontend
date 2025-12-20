@@ -9,6 +9,15 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: 'Super-Admin Panel',
   description: '',
+  manifest: "/manifest.json",
+  themeColor: "#A8E0D8",
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+  },
+  icons: {
+    apple: "/icon-192.png",
+  },
 };
 
 export default function RootLayout({
@@ -18,12 +27,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#A8E0D8" />
-        <link rel="manifest" href="/manifest.json" />
-        <link rel="apple-touch-icon" href="/icon-192.png" />
-      </head>
       <body className={inter.className}>{children}<ToastContainer position="top-right" autoClose={3000} /></body>
     </html>
   );
